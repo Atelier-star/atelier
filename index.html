@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ATELIER — Монголын орчин үеийн загвар</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- TOP ANNOUNCEMENT -->
+    <div class="announcement">
+        ҮНЭГҮЙ ХҮРГЭЛТ • 2026 ОНЫ ШИНЭ ЦУГЛУУЛГА
+    </div>
+
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <a href="#" class="logo">
+            ATELIER
+        </a>
+<button class="mobile-menu-button" onclick="toggleMobileMenu()">
+    ☰
+</button>
+        <nav class="nav">
+
+            <a href="#shop" onclick="filterCategory('WOMEN')">ЭМЭГТЭЙ</a>
+            <a href="#shop" onclick="filterCategory('MEN')">ЭРЭГТЭЙ</a>
+            <a href="#shop" onclick="filterCategory('KIDS')">ХҮҮХЭД</a>
+            <a href="#shop" onclick="filterCategory('SHOES')">ГУТАЛ</a>
+            <a href="#shop" onclick="filterCategory('CLOTHING')">ХУВЦАС</a>
+            <a href="#shop" onclick="filterCategory('SALE')">ХЯМДРАЛ</a>
+            <a href="#shop" onclick="filterCategory('ACCESSORIES')">ДАГАЛДАХ ХЭРЭГСЭЛ</a>
+        </nav>
+
+
+        <div class="header-actions">
+
+    <button
+        id="openSearch"
+        aria-label="Хайх">
+        ⌕
+    </button>
+
+    <button
+    aria-label="Бүртгэл"
+    onclick="window.location.href='account.html'">
+    ♙
+</button>
+
+    <button
+        aria-label="Сагс"
+        onclick="window.location.href='cart.html'">
+        🛍
+    </button>
+
+</div>
+
+    </header>
+<!-- ХАЙХ OVERLAY -->
+
+<div id="searchOverlay" class="search-overlay">
+
+    <div class="search-box">
+
+        <div class="search-top">
+
+            <span>ХАЙХ</span>
+
+            <button
+                id="closeSearch"
+                class="close-search">
+                ×
+            </button>
+
+        </div>
+
+        <div class="search-input-wrap">
+
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="Юу хайж байна вэ?">
+
+            <span>⌕</span>
+
+        </div>
+
+        <div class="search-suggestions">
+
+            <p>ЭРЭЛТТЭЙ</p>
+
+            <div>
+
+                <button>Түрийтэй гутал</button>
+                <button>Пүүз</button>
+                <button>Цүнх</button>
+                <button>Хүрэм</button>
+                <button>Дагалдах хэрэгсэл</button>
+
+            </div>
+
+        </div>
+<div id="searchResults" class="search-results"></div>
+    </div>
+
+</div>
+
+
+
+    <!-- HERO -->
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="small-title">
+                    2026 ОНЫ ШИНЭ ЦУГЛУУЛГА
+                </p>
+
+                <h1>
+    ЗОРИУЛСАН<br>
+    ӨДӨР БҮР.
+</h1>
+
+                <p class="hero-text">
+    Тав тух, чанар, орчин үеийн загварыг
+    өдөр тутмын амьдралд.
+</p>
+                <a href="#shop" class="shop-button">
+                    ОДОО ҮЗЭХ
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ДЭЛГҮҮР ХЭСЭХ -->
+        <section class="shopping">
+
+    <div class="section-heading">
+
+        <p class="small-title dark">
+            ЦУГЛУУЛГЫГ ҮЗЭХ
+        </p>
+
+        <h2>
+            АНГИЛЛААР ҮЗЭХ
+        </h2>
+
+    </div>
+
+
+    <div class="category-grid">
+
+        <a href="#" class="category women">
+
+            <div class="category-content">
+
+                <p>01</p>
+
+                <h3>ЭМЭГТЭЙ</h3>
+
+                <span>ЭМЭГТЭЙ АНГИЛЛЫГ ҮЗЭХ →</span>
+
+            </div>
+
+        </a>
+
+
+        <a href="#" class="category men">
+
+            <div class="category-content">
+
+                <p>02</p>
+
+                <h3>ЭРЭГТЭЙ</h3>
+
+                <span>ЭРЭГТЭЙ АНГИЛЛЫГ ҮЗЭХ →</span>
+
+            </div>
+
+        </a>
+
+
+        <a href="#" class="category kids">
+
+            <div class="category-content">
+
+                <p>03</p>
+
+                <h3>ХҮҮХЭД</h3>
+
+                <span>ХҮҮХДИЙН АНГИЛЛЫГ ҮЗЭХ →</span>
+
+            </div>
+
+        </a>
+
+
+        <a href="#" class="category shoes">
+
+            <div class="category-content">
+
+                <p>04</p>
+
+                <h3>ГУТАЛ</h3>
+
+                <span>ГУТЛЫН АНГИЛЛЫГ ҮЗЭХ →</span>
+
+            </div>
+
+        </a>
+
+
+        <a href="#" class="category clothing">
+
+            <div class="category-content">
+
+                <p>05</p>
+
+                <h3>ХУВЦАС</h3>
+
+                <span>ХУВЦАСНЫ АНГИЛЛЫГ ҮЗЭХ →</span>
+
+            </div>
+
+        </a>
+
+
+        <a href="#" class="category accessories">
+
+            <div class="category-content">
+
+                <p>06</p>
+
+                <h3>ДАГАЛДАХ ХЭРЭГСЭЛ</h3>
+
+                <span>ДАГАЛДАХ ХЭРЭГСЛИЙН АНГИЛЛЫГ ҮЗЭХ →</span>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- ШИЛДЭГ БҮТЭЭГДЭХҮҮН -->
+
+<section class="products" id="shop">
+
+    <div class="section-header">
+
+        <div>
+
+            <p class="small-title dark">
+                ХАМГИЙН ЭРЭЛТТЭЙ
+            </p>
+
+            <h2>
+                ШИЛДЭГ БҮТЭЭГДЭХҮҮН
+            </h2>
+
+        </div>
+
+
+        <div class="carousel-controls">
+
+            <button
+                class="carousel-btn"
+                onclick="scrollProducts(-1)">
+                ←
+            </button>
+
+            <button
+                class="carousel-btn"
+                onclick="scrollProducts(1)">
+                →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- CATEGORY TABS -->
+
+    <div class="product-tabs">
+
+        <button class="tab active">
+            БҮГД
+        </button>
+
+        <button class="tab">
+            ГУТАЛ
+        </button>
+
+        <button class="tab">
+            ХУВЦАС
+        </button>
+
+        <button class="tab">
+            ДАГАЛДАХ ХЭРЭГСЭЛ
+        </button>
+
+    </div>
+
+
+    <!-- PRODUCT CAROUSEL -->
+
+    <div
+        class="product-carousel"
+        id="productCarousel">
+
+
+        <!-- PRODUCT 1 -->
+
+        <article
+            class="product"
+            onclick="window.location.href='product.html?id=1'">
+<span class="sale-badge">ХЯМДРАЛ</span>
+            <div class="product-image product-one">
+
+                
+                <button
+                    class="heart"
+                    onclick="event.stopPropagation()">
+                    ♡
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <p class="product-category">
+                    ГУТАЛ
+                </p>
+
+                <h3>
+                    Сонгодог илгэн түрийтэй гутал
+                </h3>
+
+                <span class="product-price">
+    <span class="old-price">299,000₮</span>
+    <span class="sale-price">239,000₮</span>
+</span>
+                <div class="colors">
+
+                    <span class="color brown"></span>
+                    <span class="color black"></span>
+                    <span class="color cream"></span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- PRODUCT 2 -->
+
+        <article
+            class="product"
+            onclick="window.location.href='product.html?id=2'">
+
+            <div class="product-image product-two">
+
+                <span class="product-badge">
+                    ШИЛДЭГ
+                </span>
+
+                <button
+                    class="heart"
+                    onclick="event.stopPropagation()">
+                    ♡
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <p class="product-category">
+                    ГУТАЛ
+                </p>
+
+                <h3>
+                    Өдөр тутмын пүүз
+                </h3>
+
+                <p class="price">
+                    ₮189,000
+                </p>
+
+                <div class="colors">
+
+                    <span class="color white"></span>
+                    <span class="color black"></span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- PRODUCT 3 -->
+
+        <article
+            class="product"
+            onclick="window.location.href='product.html?id=3'">
+
+            <div class="product-image product-three">
+
+                <span class="sale-badge">ХЯМДРАЛ</span>
+
+                <button
+                    class="heart"
+                    onclick="event.stopPropagation()">
+                    ♡
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <p class="product-category">
+                    ХУВЦАС
+                </p>
+
+                <h3>
+                    Өдөр тутмын сул загвартай худи
+                </h3>
+
+                <span class="product-price">
+    <span class="old-price">159,000₮</span>
+    <span class="sale-price">119,000₮</span>
+</span>
+
+                <div class="colors">
+
+                    <span class="color cream"></span>
+                    <span class="color grey"></span>
+                    <span class="color black"></span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- PRODUCT 4 -->
+
+        <article
+            class="product"
+            onclick="window.location.href='product.html?id=4'">
+
+            <div class="product-image product-four">
+
+                <button
+                    class="heart"
+                    onclick="event.stopPropagation()">
+                    ♡
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <p class="product-category">
+                    ДАГАЛДАХ ХЭРЭГСЭЛ
+                </p>
+
+                <h3>
+                    Өдөр тутмын мини цүнх
+                </h3>
+
+                <p class="price">
+                    ₮129,000
+                </p>
+
+                <div class="colors">
+
+                    <span class="color brown"></span>
+                    <span class="color black"></span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- PRODUCT 5 -->
+
+        <article
+            class="product"
+            onclick="window.location.href='product.html?id=5'">
+
+            <div class="product-image product-five">
+
+                <span class="sale-badge">ХЯМДРАЛ</span>
+
+                <button
+                    class="heart"
+                    onclick="event.stopPropagation()">
+                    ♡
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <p class="product-category">
+                    ХУВЦАС
+                </p>
+
+                <h3>
+                    Сул эсгүүртэй ноосон пальто
+                </h3>
+
+                <span class="product-price">
+    <span class="old-price">389,000₮</span>
+    <span class="sale-price">299,000₮</span>
+</span>
+
+                <div class="colors">
+
+                    <span class="color grey"></span>
+                    <span class="color black"></span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- PRODUCT 6 -->
+
+        <article
+            class="product"
+            onclick="window.location.href='product.html?id=6'">
+
+            <div class="product-image product-six">
+
+                <button
+                    class="heart"
+                    onclick="event.stopPropagation()">
+                    ♡
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <p class="product-category">
+                    ДАГАЛДАХ ХЭРЭГСЭЛ
+                </p>
+
+                <h3>
+                    Зөөлөн арьсан цүнх
+                </h3>
+
+                <p class="price">
+                    ₮249,000
+                </p>
+
+                <div class="colors">
+
+                    <span class="color brown"></span>
+                    <span class="color black"></span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- PRODUCT 7 -->
+
+        <article
+            class="product"
+            onclick="window.location.href='product.html?id=7'">
+
+            <div class="product-image product-seven">
+
+                <span class="product-badge">
+                    ХЯМДРАЛ
+                </span>
+
+                <button
+                    class="heart"
+                    onclick="event.stopPropagation()">
+                    ♡
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <p class="product-category">
+                    ГУТАЛ
+                </p>
+
+                <h3>
+                    Сонгодог арьсан лофер
+                </h3>
+
+                <p class="price">
+                    ₮219,000
+                </p>
+
+                <div class="colors">
+
+                    <span class="color black"></span>
+                    <span class="color brown"></span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- PRODUCT 8 -->
+
+        <article
+            class="product"
+            onclick="window.location.href='product.html?id=8'">
+
+            <div class="product-image product-eight">
+
+                <span class="sale-badge">ХЯМДРАЛ</span>
+
+                <button
+                    class="heart"
+                    onclick="event.stopPropagation()">
+                    ♡
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <p class="product-category">
+                    ГУТАЛ
+                </p>
+
+                <h3>
+                    Минимал загварын пүүз
+                </h3>
+
+                <span class="product-price">
+    <span class="old-price">199,000₮</span>
+    <span class="sale-price">149,000₮</span>
+</span>
+
+                <div class="colors">
+
+                    <span class="color white"></span>
+                    <span class="color grey"></span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+    
+
+<!-- ШИНЭ БҮТЭЭГДЭХҮҮН -->
+
+<section class="new-arrivals">
+
+    <div class="new-arrivals-header">
+
+        <div>
+            <p class="small-title dark">
+                ШИНЭЭР НЭМЭГДСЭН
+            </p>
+
+            <h2>
+                ШИНЭ БҮТЭЭГДЭХҮҮН
+            </h2>
+        </div>
+
+        <a href="#shop">
+    ШИНЭ БҮТЭЭГДЭХҮҮН ҮЗЭХ →
+</a>
+
+    </div>
+
+
+    <div class="new-arrivals-grid">
+
+        <div class="new-arrival-card large">
+
+            <div class="new-arrival-image image-a"></div>
+
+            <div class="new-arrival-text">
+
+                <p>ЭМЭГТЭЙ</p>
+
+                <h3>
+                    ШИНЭ УЛИРАЛ,
+                    ШИНЭ ӨНГӨ АЯС.
+                </h3>
+
+                <a href="#shop">
+    ЭМЭГТЭЙ АНГИЛЛЫГ ҮЗЭХ →
+</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="new-arrival-card">
+
+            <div class="new-arrival-image image-b"></div>
+
+            <div class="new-arrival-text">
+
+                <p>ГУТАЛ</p>
+
+                <h3>
+                    ШИНЭ ЗАГВАРТ
+                    АЛХААРАЙ.
+                </h3>
+
+                <a href="#shop">
+    ГУТЛЫН АНГИЛЛЫГ ҮЗЭХ →
+</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="new-arrival-card">
+
+            <div class="new-arrival-image image-c"></div>
+
+            <div class="new-arrival-text">
+
+                <p>ДАГАЛДАХ ХЭРЭГСЭЛ</p>
+
+                <h3>
+                    ЖИЖИГ ДЭТАЛЬ
+                    ЧУХАЛ.
+                </h3>
+
+                <a href="#shop">
+    ДАГАЛДАХ ХЭРЭГСЛИЙН АНГИЛЛЫГ ҮЗЭХ →
+</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+        <!-- БИДНИЙ ТҮҮХ -->
+
+<section class="story">
+
+    <div class="story-image">
+
+        <div class="story-image-overlay">
+
+            <p>
+                ATELIER
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="story-content">
+
+        <p class="small-title dark">
+            БИДНИЙ ТҮҮХ
+        </p>
+
+        <h2>
+            ӨДӨР ТУТМЫН
+            АМЬДРАЛД ЗОРИУЛСАН.
+        </h2>
+
+        <p class="story-description">
+
+            Бид тав тух, чанар, орчин үеийн
+            загварыг нэг дор нэгтгэн,
+            өдөр бүр өмсөхөд зориулсан
+            мөнхийн бүтээгдэхүүнийг бүтээдэг.
+
+        </p>
+
+        <a href="#" class="outline-button">
+            БИДНИЙ ТҮҮХТЭЙ ТАНИЛЦАХ
+        </a>
+
+    </div>
+
+</section>
+
+<!-- REAL PEOPLE -->
+
+<section class="community">
+
+    <div class="community-heading">
+
+        <p class="small-title dark">
+            #ATELIERSTYLE
+        </p>
+
+        <h2>
+            БОДИТ ХҮМҮҮС.<br>
+            БОДИТ ХЭВ МАЯГ.
+        </h2>
+
+        <p>
+            Өөрийн хэв маягаа бидэнтэй хуваалцаарай.
+        </p>
+
+    </div>
+
+
+    <div class="community-grid">
+
+        <div class="community-image community-1"></div>
+
+        <div class="community-image community-2"></div>
+
+        <div class="community-image community-3"></div>
+
+        <div class="community-image community-4"></div>
+
+        <div class="community-image community-5"></div>
+
+    </div>
+
+
+    <a
+    href="https://www.instagram.com/"
+    target="_blank"
+    class="community-button"
+>
+    @ATELIER-ИЙГ ДАГАХ →
+</a>
+
+</section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-column">
+
+            <h3>ATELIER</h3>
+
+            <p>
+                Өдөр тутмын амьдралд зориулсан орчин үеийн загвар.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>ДЭЛГҮҮР</h4>
+
+            <a href="#">Эмэгтэй</a>
+            <a href="#">Эрэгтэй</a>
+            <a href="#">Хүүхэд</a>
+            <a href="#">Гутал</a>
+            <a href="#">Хувцас</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>ТУСЛАМЖ</h4>
+
+            <a href="#">Хүргэлт</a>
+            <a href="#">Буцаалт</a>
+            <a href="#">Хэмжээний заавар</a>
+            <a href="#">Холбоо барих</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>БИДНИЙГ ДАГААРАЙ</h4>
+
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">TikTok</a>
+
+        </div>
+
+    </footer>
+
+
+    <div class="copyright">
+
+        © 2026 ATELIER. Бүх эрх хуулиар хамгаалагдсан.
+
+    </div>
+
+<script>
+
+function scrollProducts(direction) {
+
+    const carousel =
+        document.getElementById("productCarousel");
+
+    const amount = 500;
+
+    carousel.scrollBy({
+
+        left: direction * amount,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+</script>
+<script src="script.js"></script>
+<script>
+function toggleMobileMenu() {
+    const nav = document.querySelector(".nav");
+
+    if (nav) {
+        nav.classList.toggle("mobile-open");
+    }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://ajowqplevgcoyjhftqed.supabase.co";
+const SUPABASE_KEY = "sb_publishable_iefx0_jjyTgqIvVuAjeofw_wqQpopp1"
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+</script>
+</body>
+</html>

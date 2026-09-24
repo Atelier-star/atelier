@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Нэвтрэх — ATELIER</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="announcement">
+    ҮНЭГҮЙ ХҮРГЭЛТ • 2026 ОНЫ ШИНЭ ЦУГЛУУЛГА
+</div>
+
+<header class="header">
+
+    <a href="index.html" class="logo">
+        ATELIER
+    </a>
+
+    <nav class="nav">
+        <a href="index.html">ЭМЭГТЭЙ</a>
+        <a href="index.html">ЭРЭГТЭЙ</a>
+        <a href="index.html">ХҮҮХЭД</a>
+        <a href="index.html">ГУТАЛ</a>
+        <a href="index.html">ХУВЦАС</a>
+        <a href="index.html">ДАГАЛДАХ ХЭРЭГСЭЛ</a>
+        <a href="index.html">ХЯМДРАЛ</a>
+    </nav>
+
+    <div class="header-actions">
+
+        <button onclick="window.location.href='index.html'">
+            ⌕
+        </button>
+
+        <button onclick="window.location.href='account.html'">
+            ♙
+        </button>
+
+        <button onclick="window.location.href='cart.html'">
+            🛍
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="login-page">
+
+    <div class="login-box">
+
+        <p class="small-title">
+            ТАВТАЙ МОРИЛ
+        </p>
+
+        <h1>НЭВТРЭХ</h1>
+
+
+        <form id="loginForm">
+
+            <label>
+                И-МЭЙЛ
+            </label>
+
+            <input
+                type="email"
+                placeholder="И-мэйлийн хаягаа оруулна уу"
+                required>
+
+
+            <label>
+                НУУЦ ҮГ
+            </label>
+
+            <input
+                type="password"
+                placeholder="Нууц үгээ оруулна уу"
+                required>
+
+
+            <button
+                type="submit"
+                class="account-button">
+                НЭВТРЭХ
+            </button>
+
+        </form>
+
+
+        <p class="login-register">
+            Бүртгэлгүй юу?
+            <a href="account.html">
+                Бүртгүүлэх
+            </a>
+        </p>
+
+    </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://ajowqplevgcoyjhfqted.supabase.co";
+const SUPABASE_KEY = "sb_publishable_iefx0_jjyTgqIvVuAjeofw_wqQpopp1"
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+</script>
+
+<script>
+const loginForm =
+    document.getElementById("loginForm");
+
+if (loginForm) {
+
+    loginForm.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const email =
+            loginForm.querySelector('input[type="email"]').value.trim();
+
+        const password =
+            loginForm.querySelector('input[type="password"]').value;
+
+        const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+        if (error) {
+            alert("И-мэйл эсвэл нууц үг буруу байна.");
+            return;
+        }
+
+        alert("Амжилттай нэвтэрлээ.");
+
+        window.location.href = "account.html";
+    });
+}
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATELIER — Админ</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="admin-page">
+
+        <h1>ATELIER — АДМИН</h1>
+
+        <p>Захиалгын удирдлагын хэсэг</p>
+
+        <div id="adminContent">
+            Шалгаж байна...
+        </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+    "https://ajowqplevgcoyjhfqted.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_iefx0_jjyTgqIvVuAjeofw_wqQpopp1"
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+async function checkAdmin() {
+
+    const adminContent =
+        document.getElementById("adminContent");
+
+    const { data: userData } =
+        await supabaseClient.auth.getUser();
+
+    if (!userData.user) {
+
+        adminContent.innerHTML =
+            "<p>Та эхлээд нэвтэрнэ үү.</p>";
+
+        return;
+    }
+
+    const { data: adminData, error } =
+        await supabaseClient
+            .from("admins")
+            .select("user_id")
+            .eq("user_id", userData.user.id)
+            .maybeSingle();
+
+    if (error || !adminData) {
+
+        adminContent.innerHTML =
+            "<p>Танд админ эрх байхгүй.</p>";
+
+        return;
+    }
+
+    adminContent.innerHTML = `
+    <h2>ТА АДМИН ЭРХТЭЙ</h2>
+
+    <div class="admin-stats">
+
+        <div class="admin-stat">
+            <span>НИЙТ ЗАХИАЛГА</span>
+            <strong id="totalOrders">0</strong>
+        </div>
+
+        <div class="admin-stat">
+            <span>ШИНЭ ЗАХИАЛГА</span>
+            <strong id="newOrders">0</strong>
+        </div>
+
+        <div class="admin-stat">
+            <span>ХҮРГЭГДСЭН</span>
+            <strong id="deliveredOrders">0</strong>
+        </div>
+
+        <div class="admin-stat">
+            <span>НИЙТ БОРЛУУЛАЛТ</span>
+            <strong id="totalSales">₮0</strong>
+        </div>
+
+    </div>
+
+    <div id="adminOrders">
+        Захиалгуудыг ачаалж байна...
+    </div>
+`;
+
+const { data: orders, error: ordersError } =
+    await supabaseClient
+        .from("orders")
+        .select("*")
+        .order("created_at", {
+            ascending: false
+        });
+
+if (ordersError) {
+    console.error(ordersError);
+
+    document.getElementById("adminOrders").innerHTML =
+        "<p>Захиалгыг ачаалахад алдаа гарлаа.</p>";
+
+    return;
+}
+const totalOrders =
+    orders.length;
+
+const newOrders =
+    orders.filter(function(order) {
+        return order.status === "Шинэ захиалга";
+    }).length;
+
+const deliveredOrders =
+    orders.filter(function(order) {
+        return order.status === "Хүргэгдсэн";
+    }).length;
+
+const totalSales =
+    orders.reduce(function(total, order) {
+        return total + Number(order.total || 0);
+    }, 0);
+
+document.getElementById("totalOrders").textContent =
+    totalOrders;
+
+document.getElementById("newOrders").textContent =
+    newOrders;
+
+document.getElementById("deliveredOrders").textContent =
+    deliveredOrders;
+
+document.getElementById("totalSales").textContent =
+    "₮" + totalSales.toLocaleString();
+if (!orders || orders.length === 0) {
+
+    document.getElementById("adminOrders").innerHTML =
+        "<p>Одоогоор захиалга байхгүй байна.</p>";
+
+    return;
+}
+
+document.getElementById("adminOrders").innerHTML =
+    orders.map(function(order) {
+
+        return `
+            <div class="admin-order">
+
+                <h3>${order.order_number}</h3>
+
+                <p>
+                    <strong>Огноо:</strong>
+                    ${new Date(order.created_at)
+                        .toLocaleString("mn-MN")}
+                </p>
+
+                <p>
+                    <strong>Харилцагч:</strong>
+                    ${order.customer_name || ""}
+                </p>
+
+                <p>
+                    <strong>Утас:</strong>
+                    ${order.phone || ""}
+                </p>
+
+                <p>
+                    <strong>Хаяг:</strong>
+                    ${order.address || ""}
+                </p>
+<div class="admin-products">
+
+    <strong>БАРАА:</strong>
+
+    ${(order.items || []).map(function(item) {
+
+        return `
+            <div class="admin-product">
+
+                <div>
+                    <strong>${item.name || ""}</strong>
+                </div>
+
+                <div>
+                    Хэмжээ: ${item.size || "-"}
+                </div>
+
+                <div>
+                    Өнгө: ${item.color || "-"}
+                </div>
+
+                <div>
+                    Тоо ширхэг: ${item.quantity || 1}
+                </div>
+
+                <div>
+                    Үнэ: ₮${Number(item.price || 0).toLocaleString()}
+                </div>
+
+            </div>
+        `;
+
+    }).join("")}
+
+</div>
+                <p>
+                    <strong>Нийт:</strong>
+                    ₮${Number(order.total || 0)
+                        .toLocaleString()}
+                </p>
+
+                <p>
+                    <strong>Төлбөр:</strong>
+                    ${order.payment_method || ""}
+                </p>
+
+                <p>
+                    <strong>Төлөв:</strong>
+
+<select
+    class="order-status"
+    data-order-id="${order.id}">
+
+    <option value="Шинэ захиалга"
+        ${order.status === "Шинэ захиалга" ? "selected" : ""}>
+        Шинэ захиалга
+    </option>
+
+    <option value="Бэлтгэж байна"
+        ${order.status === "Бэлтгэж байна" ? "selected" : ""}>
+        Бэлтгэж байна
+    </option>
+
+    <option value="Хүргэлтэнд гарсан"
+        ${order.status === "Хүргэлтэнд гарсан" ? "selected" : ""}>
+        Хүргэлтэнд гарсан
+    </option>
+
+    <option value="Хүргэгдсэн"
+        ${order.status === "Хүргэгдсэн" ? "selected" : ""}>
+        Хүргэгдсэн
+    </option>
+
+    <option value="Цуцлагдсан"
+        ${order.status === "Цуцлагдсан" ? "selected" : ""}>
+        Цуцлагдсан
+    </option>
+
+</select>
+                </p>
+
+            </div>
+        `;
+
+    }).join("");
+    document.querySelectorAll(".order-status").forEach(function(select) {
+
+    select.addEventListener("change", async function() {
+
+        const orderId = this.dataset.orderId;
+        const newStatus = this.value;
+
+        const { error } =
+            await supabaseClient
+                .from("orders")
+                .update({
+                    status: newStatus
+                })
+                .eq("id", orderId);
+
+        if (error) {
+
+            console.error(error);
+
+            alert("Төлөв шинэчлэхэд алдаа гарлаа.");
+
+            return;
+        }
+
+        alert("Захиалгын төлөв шинэчлэгдлээ.");
+    });
+});
+}
+
+checkAdmin();
+</script>
+    </main>
+
+</body>
+</html>

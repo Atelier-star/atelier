@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Миний бүртгэл — ATELIER</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="announcement">
+    ҮНЭГҮЙ ХҮРГЭЛТ • 2026 ОНЫ ШИНЭ ЦУГЛУУЛГА
+</div>
+
+
+<header class="header">
+
+    <a href="index.html" class="logo">
+        ATELIER
+    </a>
+
+
+    <nav class="nav">
+
+        <a href="index.html">ЭМЭГТЭЙ</a>
+        <a href="index.html">ЭРЭГТЭЙ</a>
+        <a href="index.html">ХҮҮХЭД</a>
+        <a href="index.html">ГУТАЛ</a>
+        <a href="index.html">ХУВЦАС</a>
+        <a href="index.html">ДАГАЛДАХ ХЭРЭГСЭЛ</a>
+        <a href="index.html">ХЯМДРАЛ</a>
+
+    </nav>
+
+
+    <div class="header-actions">
+
+        <button
+            onclick="window.location.href='index.html'">
+            ⌕
+        </button>
+
+        <button
+            onclick="window.location.href='account.html'">
+            ♙
+        </button>
+
+        <button
+            onclick="window.location.href='cart.html'">
+            🛍
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main class="account-page">
+
+    <div class="account-box">
+
+        <p class="small-title">
+            ATELIER-Д ТАВТАЙ МОРИЛ
+        </p>
+
+        <h1>
+            МИНИЙ БҮРТГЭЛ
+        </h1>
+
+        <p>
+            Захиалга, хувийн мэдээлэл болон бүртгэлийн мэдээллээ харахын тулд нэвтэрнэ үү.
+        </p>
+
+
+        <button
+    class="account-button"
+    onclick="window.location.href='login.html'">
+    НЭВТРЭХ
+</button>
+
+
+        <button
+    class="account-button outline"
+    onclick="window.location.href='register.html'">
+    БҮРТГҮҮЛЭХ
+</button>
+<div class="my-orders">
+
+    <h2>МИНИЙ ЗАХИАЛГУУД</h2>
+
+    <div id="myOrdersList"></div>
+
+</div>
+    </div>
+
+</main>
+
+<button
+    class="account-button outline"
+    onclick="logout()">
+    ГАРАХ
+</button>
+
+<footer>
+
+    <div class="footer-column">
+
+        <h3>ATELIER</h3>
+
+        <p>
+            Өдөр тутмын амьдралд зориулсан орчин үеийн загвар.
+        </p>
+
+    </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+    "https://ajowqplevgcoyjhfqted.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_iefx0_jjyTgqIvVuAjeofw_wqQpopp1"
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+async function loadAccountName() {
+
+    const { data, error } =
+        await supabaseClient.auth.getUser();
+
+    if (error || !data.user) {
+        return;
+    }
+
+    const welcomeTitle =
+        document.querySelector(".account-box h1");
+
+    if (welcomeTitle) {
+
+        const name =
+            data.user.user_metadata.full_name ||
+            data.user.email;
+
+        welcomeTitle.textContent =
+            "ТАВТАЙ МОРИЛ, " +
+            name.toUpperCase();
+    }
+}
+
+loadAccountName();
+</script>
+
+<script>
+async function logout() {
+
+    const { error } =
+        await supabaseClient.auth.signOut();
+
+    if (error) {
+        alert("Гарахад алдаа гарлаа.");
+        return;
+    }
+
+
+    alert("Та бүртгэлээс гарлаа.");
+
+    window.location.href = "login.html";
+}
+</script>
+<script>
+async function loadMyOrders() {
+
+    const myOrdersList =
+        document.getElementById("myOrdersList");
+
+    if (!myOrdersList) return;
+
+    const { data: userData, error: userError } =
+        await supabaseClient.auth.getUser();
+
+    if (userError || !userData.user) {
+        myOrdersList.innerHTML =
+            "<p>Захиалгаа харахын тулд нэвтэрнэ үү.</p>";
+        return;
+    }
+
+    const { data: orders, error } =
+        await supabaseClient
+            .from("orders")
+            .select("*")
+            .eq("user_id", userData.user.id)
+            .order("created_at", {
+                ascending: false
+            });
+
+    if (error) {
+        console.error(error);
+
+        myOrdersList.innerHTML =
+            "<p>Захиалгыг ачаалахад алдаа гарлаа.</p>";
+
+        return;
+    }
+
+    if (!orders || orders.length === 0) {
+
+        myOrdersList.innerHTML =
+            "<p>Одоогоор захиалга байхгүй байна.</p>";
+
+        return;
+    }
+
+    orders.forEach(function(order) {
+
+        const orderBox =
+            document.createElement("div");
+
+        orderBox.className =
+            "my-order-item";
+
+        orderBox.innerHTML = `
+            <h3>${order.order_number}</h3>
+
+            <p>
+                <strong>Огноо:</strong>
+                ${new Date(order.created_at).toLocaleString("mn-MN")}
+            </p>
+
+            <p>
+                <strong>Төлөв:</strong>
+                ${order.status || "Шинэ захиалга"}
+            </p>
+
+            <p>
+                <strong>Нийт:</strong>
+                ₮${Number(order.total || 0).toLocaleString()}
+            </p>
+
+            <p>
+                <strong>Хүргэлт:</strong>
+                ${order.delivery_name || ""}
+            </p>
+
+            <div class="order-products">
+
+                ${(order.items || []).map(function(item) {
+
+                    return `
+                        <p>
+                            ${item.name}
+                            — ₮${Number(item.price).toLocaleString()}
+                        </p>
+                    `;
+
+                }).join("")}
+
+            </div>
+        `;
+
+        myOrdersList.appendChild(orderBox);
+    });
+}
+
+loadMyOrders();
+</script>
+<script>
+async function checkAuth() {
+
+    const { data } =
+        await supabaseClient.auth.getUser();
+
+    if (!data.user) {
+        window.location.href = "login.html";
+    }
+}
+
+checkAuth();
+</script>
+</body>
+</html>

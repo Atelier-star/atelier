@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Бүртгүүлэх — ATELIER</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="announcement">
+    ҮНЭГҮЙ ХҮРГЭЛТ • 2026 ОНЫ ШИНЭ ЦУГЛУУЛГА
+</div>
+
+<header class="header">
+
+    <a href="index.html" class="logo">
+        ATELIER
+    </a>
+
+    <nav class="nav">
+        <a href="index.html">ЭМЭГТЭЙ</a>
+        <a href="index.html">ЭРЭГТЭЙ</a>
+        <a href="index.html">ХҮҮХЭД</a>
+        <a href="index.html">ГУТАЛ</a>
+        <a href="index.html">ХУВЦАС</a>
+        <a href="index.html">ДАГАЛДАХ ХЭРЭГСЭЛ</a>
+        <a href="index.html">ХЯМДРАЛ</a>
+    </nav>
+
+    <div class="header-actions">
+
+        <button onclick="window.location.href='index.html'">
+            ⌕
+        </button>
+
+        <button onclick="window.location.href='account.html'">
+            ♙
+        </button>
+
+        <button onclick="window.location.href='cart.html'">
+            🛍
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="login-page">
+
+    <div class="login-box">
+
+        <p class="small-title">
+            ATELIER-Д БҮРТГҮҮЛЭХ
+        </p>
+
+        <h1>БҮРТГҮҮЛЭХ</h1>
+
+
+        <form id="registerForm">
+
+            <label>
+                ОВОГ, НЭР
+            </label>
+
+            <input
+                id="registerName"
+                type="text"
+                placeholder="Овог, нэрээ оруулна уу"
+                required>
+
+
+            <label>
+                И-МЭЙЛ
+            </label>
+
+            <input
+                id="registerEmail"
+                type="email"
+                placeholder="И-мэйлийн хаягаа оруулна уу"
+                required>
+
+
+            <label>
+                НУУЦ ҮГ
+            </label>
+
+            <input
+                id="registerPassword"
+                type="password"
+                placeholder="Нууц үг үүсгэнэ үү"
+                required>
+
+
+            <label>
+                НУУЦ ҮГ ДАВТАХ
+            </label>
+
+            <input
+                id="confirmPassword"
+                type="password"
+                placeholder="Нууц үгээ дахин оруулна уу"
+                required>
+
+
+            <button
+                type="submit"
+                class="account-button">
+                БҮРТГҮҮЛЭХ
+            </button>
+
+        </form>
+
+
+        <p class="login-register">
+
+            Бүртгэлтэй юу?
+
+            <a href="login.html">
+                Нэвтрэх
+            </a>
+
+        </p>
+
+    </div>
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://ajowqplevgcoyjhfqted.supabase.co"
+const SUPABASE_KEY = "sb_publishable_iefx0_jjyTgqIvVuAjeofw_wqQpopp1"
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+</script>
+<<script>
+const registerForm =
+    document.getElementById("registerForm");
+
+if (registerForm) {
+
+    registerForm.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById("registerName").value.trim();
+
+        const email =
+            document.getElementById("registerEmail").value.trim();
+
+        const password =
+            document.getElementById("registerPassword").value;
+
+        const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+            alert("Нууц үг хоорондоо таарахгүй байна.");
+            return;
+        }
+
+        const { data, error } =
+            await supabaseClient.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        full_name: name
+                    }
+                }
+            });
+
+        if (error) {
+            alert(error.message);
+            return;
+        }
+
+        alert(
+            "Бүртгэл амжилттай үүслээ. Имэйлээ шалгаж бүртгэлээ баталгаажуулна уу."
+        );
+
+        window.location.href = "login.html";
+    });
+}
+</script>
+</body>
+</html>

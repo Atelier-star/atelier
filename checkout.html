@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Захиалга — ATELIER</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ANNOUNCEMENT -->
+
+<div class="announcement">
+    ҮНЭГҮЙ ХҮРГЭЛТ • 2026 ОНЫ ШИНЭ ЦУГЛУУЛГА
+</div>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <a href="index.html" class="logo">
+        ATELIER
+    </a>
+
+
+    <nav class="nav">
+
+        <a href="index.html">ЭМЭГТЭЙ</a>
+        <a href="index.html">ЭРЭГТЭЙ</a>
+        <a href="index.html">ХҮҮХЭД</a>
+        <a href="index.html">ГУТАЛ</a>
+        <a href="index.html">ХУВЦАС</a>
+        <a href="index.html">ДАГАЛДАХ ХЭРЭГСЭЛ</a>
+        <a href="index.html">ХЯМДРАЛ</a>
+
+    </nav>
+
+
+    <div class="header-actions">
+
+        <button>⌕</button>
+
+        <button>♙</button>
+
+        <button onclick="window.location.href='cart.html'">
+            🛒
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- ЗАХИАЛГА БАТАЛГААЖУУЛАХ -->
+
+<main class="checkout-page">
+
+   
+
+
+    <div class="checkout-layout">
+
+
+        <!-- DELIVERY -->
+
+        <section class="checkout-form">
+
+            <h2>ХҮРГЭЛТИЙН МЭДЭЭЛЭЛ</h2>
+
+
+            <label>
+                Овог, нэр
+            </label>
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Нэрээ оруулна уу"
+            >
+
+
+            <label>
+                Утасны дугаар
+            </label>
+
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="Утасны дугаараа оруулна уу"
+            >
+
+
+            <label>
+                Хаяг
+            </label>
+
+            <textarea
+                id="customerХаяг"
+                placeholder="Хүргэлтийн хаяг"
+            ></textarea>
+
+<h2>ХҮРГЭЛТ</h2>
+
+<label for="deliveryZone">
+    Хүргэлтийн бүс
+</label>
+
+<select id="deliveryZone">
+
+    <option value="ub">
+        Улаанбаатар — ₮5,000
+    </option>
+
+    <option value="local">
+        Орон нутаг — ₮10,000
+    </option>
+
+</select>
+
+            <h2>ТӨЛБӨР</h2>
+
+
+            <div class="payment-methods">
+
+    <label class="payment-option">
+        <input
+            type="radio"
+            name="payment"
+            value="cash"
+            checked
+        >
+        <span>Хүргэлтийн үед бэлнээр төлөх</span>
+    </label>
+
+
+    <label class="payment-option">
+        <input
+            type="radio"
+            name="payment"
+            value="qpay"
+        >
+        <span>QPay</span>
+    </label>
+
+
+    <label class="payment-option">
+        <input
+            type="radio"
+            name="payment"
+            value="bank"
+        >
+        <span>Банкны дансаар төлөх</span>
+    </label>
+
+
+    <label class="payment-option">
+        <input
+            type="radio"
+            name="payment"
+            value="card"
+        >
+        <span>Картын төлбөр</span>
+    </label>
+
+</div>
+
+
+            <button
+    type="button"
+    class="place-order-button"
+    id="placeOrder"
+    onclick="placeOrder()"
+    <div id="qpayInfo" class="payment-info" style="display:none;">
+
+    <h3>QPay төлбөр</h3>
+
+    <p>QPay ашиглан төлбөрөө төлнө үү.</p>
+
+    <div class="qpay-placeholder">
+        QPay QR КОД
+    </div>
+
+</div>
+
+
+<div id="bankInfo" class="payment-info" style="display:none;">
+
+    <h3>Банкны данс</h3>
+
+    <p><strong>Банк:</strong> Хаан банк</p>
+
+    <p><strong>Дансны дугаар:</strong> 5000000000</p>
+
+    <p><strong>Данс эзэмшигч:</strong> ATELIER</p>
+
+    <p>
+        Гүйлгээний утга дээр захиалагчийн
+        нэрээ бичнэ үү.
+    </p>
+
+</div>
+<button
+    type="button"
+    class="place-order-button"
+    id="placeOrder"
+    onclick="placeOrder()">
+    ЗАХИАЛГА ӨГӨХ
+</button>
+
+
+
+        
+
+
+    </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+    "https://ajowqplevgcoyjhfqted.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_iefx0_jjyTgqIvVuAjeofw_wqQpopp1"
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+</script>
+
+<script src="script.js"></script>
+<div id="orderSuccess" class="order-success" style="display:none;">
+
+    <h1>ЗАХИАЛГА АМЖИЛТТАЙ</h1>
+
+    <p>Таны захиалга амжилттай бүртгэгдлээ.</p>
+
+
+    <div class="order-number-box">
+
+        <span>ЗАХИАЛГЫН ДУГААР</span>
+
+        <strong id="successOrderNumber"></strong>
+
+    </div>
+
+
+    <div class="success-order-details">
+
+        <div>
+            <span>БАРААНЫ ДҮН</span>
+            <strong id="successProductTotal">₮0</strong>
+        </div>
+
+        <div>
+            <span>ХҮРГЭЛТ</span>
+            <strong id="successDeliveryFee">₮0</strong>
+        </div>
+
+        <div>
+            <span>ХҮРГЭЛТИЙН БҮС</span>
+            <strong id="successDeliveryName"></strong>
+        </div>
+
+        <div>
+            <span>ТӨЛБӨРИЙН ХЭЛБЭР</span>
+            <strong id="successPaymentMethod"></strong>
+        </div>
+
+        <div class="success-total">
+            <span>НИЙТ</span>
+            <strong id="successTotal">₮0</strong>
+        </div>
+
+    </div>
+
+
+    <button
+        class="account-button"
+        onclick="window.location.href='index.html'">
+        НҮҮР ХУУДАС РУУ БУЦАХ
+    </button>
+
+</div>
+<script>
+
+const paymentOptions =
+    document.querySelectorAll(
+        'input[name="payment"]'
+    );
+
+const qpayInfo =
+    document.getElementById("qpayInfo");
+
+const bankInfo =
+    document.getElementById("bankInfo");
+
+
+paymentOptions.forEach(function(option) {
+
+    option.addEventListener("change", function() {
+
+        // Бүгдийг нуух
+        if (qpayInfo) {
+    qpayInfo.style.display = "none";
+}
+
+if (bankInfo) {
+    bankInfo.style.display = "none";
+}
+
+
+        // QPay сонгосон
+        if (this.value === "qpay") {
+
+            qpayInfo.style.display = "block";
+
+        }
+
+
+        // Банк сонгосон
+        if (this.value === "bank") {
+
+            bankInfo.style.display = "block";
+
+        }
+
+    });
+
+});
+
+</script>
+</body>
+
+</html>
